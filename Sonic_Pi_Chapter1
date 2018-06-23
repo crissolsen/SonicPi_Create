@@ -1,0 +1,44 @@
+#Running through tutorials, this is a slight reworking of the Chapter 1 piece of code from the MagPi tutorial. 
+#To see the original go to - https://www.raspberrypi.org/magpi/issues/essentials-sonic-pi-v1/
+
+with_fx :reverb, room: 1 do
+  live_loop :time do
+    synth :prophet, release: 8, note: :f1, cutoff: 90, amp: 2
+    sleep 8
+  end
+end
+
+live_loop :machine do
+  sample :loop_garzul, rate: 0.5, finish: 0.25, amp: 2
+  sample :loop_industrial, beat_stretch: 8, amp: 3
+  sleep 4
+end
+
+with_fx :reverb, room: 1 do
+  live_loop :kik do
+    sample :bd_haus, amp: 2
+    sleep 0.5
+  end
+end
+
+with_fx :echo do
+  live_loop :vortex do
+    use_random_seed 8000
+    notes = (scale :f, :minor, num_octaves: 3)
+    8.times do
+      play notes.tick, release: 0.1, amp: 0.5
+      sleep 0.75
+    end
+  end
+end
+
+
+live_loop :vortex_2 do
+  use_random_seed 8000
+  notes = (scale :f, :minor_pentatonic, num_octaves: 2)
+  16.times do
+    play notes.choose, release: 0.2, amp: 0.6
+    sleep 0.125
+  end
+end
+
