@@ -1,2 +1,2 @@
 # SonicPi_Create
-Creating through the SonicPi IDE
+Creating through the Sonic Pi Live Coding Application
