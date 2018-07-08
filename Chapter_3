@@ -1,0 +1,31 @@
+#The chapter on synths in Sonic Pi essentials. I didn't change this one too much and the main synth in the background can get annoying
+#It'd be best to randomise the note that plays.
+
+use_debug false
+live_loop :random_riff do
+  new_note = (ring :c2, :g3).choose
+  synth :subpulse, note: new_note, release: 4, amp: 0.7
+  use_synth :dsaw
+  use_random_seed 3
+  notes = (scale :g3, :major_pentatonic, num_octaves: 2).shuffle.take(16)
+  8.times do
+    play notes.tick, release: rand(0.5),
+      cutoff: rrand(60, 130) if one_in(3)
+    sleep 0.125
+  end
+end
+
+live_loop :drums do
+  use_random_seed 3000
+  16.times do
+    sample :bd_haus, rate: 2, cutoff: 110 if rand < 0.35
+    sleep 0.125
+  end
+end
+
+live_loop :bd do
+  sample :bd_haus, cutoff: 100, amp: 3
+  sleep 0.5
+  sample :sn_dub, cutoff: 70, amp: 3
+  sleep 0.5
+end
